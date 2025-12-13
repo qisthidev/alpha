@@ -1,11 +1,14 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "nunomaduro/laravel-starter-kit-inertia-react",
+    "name": "qisthidev/alpha",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Personal Laravel + React + Inertia playground for exploring Laravel features and building Laravolt-inspired components.",
     "keywords": [
         "laravel",
-        "framework"
+        "react",
+        "inertia",
+        "playground",
+        "laravolt"
     ],
     "license": "MIT",
     "require": {

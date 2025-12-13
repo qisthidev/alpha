@@ -1,37 +1,53 @@
-- Inertia & React (this project) version: **[github.com/nunomaduro/laravel-starter-kit-inertia-react](https://github.com/nunomaduro/laravel-starter-kit-inertia-react)**
-- Blade version: **[github.com/nunomaduro/laravel-starter-kit](https://github.com/nunomaduro/laravel-starter-kit)**
+# Alpha - Laravel + React + Inertia Playground
 
-<p align="center">
-    <a href="https://youtu.be/VhzP0XWGTC4" target="_blank">
-        <img src="https://github.com/nunomaduro/laravel-starter-kit/blob/main/art/banner.png" alt="Overview Laravel Starter Kit" style="width:70%;">
-    </a>
-</p>
+**Alpha** is my personal playground for exploring Laravel with React and Inertia.js. Built on top of the ultra-strict, type-safe [Laravel Starter Kit](https://github.com/nunomaduro/laravel-starter-kit-inertia-react), this project serves as my primary starter project for experimenting with Laravel features and gradually building all [Laravolt](https://laravolt.dev) features based on my experience maintaining the Laravolt ecosystem.
 
-<p>
-    <a href="https://github.com/nunomaduro/laravel-starter-kit-inertia-react/actions"><img src="https://github.com/nunomaduro/laravel-starter-kit-inertia-react/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
-    <a href="https://packagist.org/packages/nunomaduro/laravel-starter-kit-inertia-react"><img src="https://img.shields.io/packagist/dt/nunomaduro/laravel-starter-kit-inertia-react" alt="Total Downloads"></a>
-    <a href="https://packagist.org/packages/nunomaduro/laravel-starter-kit-inertia-react"><img src="https://img.shields.io/packagist/v/nunomaduro/laravel-starter-kit-inertia-react" alt="Latest Stable Version"></a>
-    <a href="https://packagist.org/packages/nunomaduro/laravel-starter-kit-inertia-react"><img src="https://img.shields.io/packagist/l/nunomaduro/laravel-starter-kit-inertia-react" alt="License"></a>
-</p>
+## About This Project
 
-**Laravel Starter Kit (Inertia & React)** is an ultra-strict, type-safe [Laravel](https://laravel.com) skeleton engineered for developers who refuse to compromise on code quality. This opinionated starter kit enforces rigorous development standards through meticulous tooling configuration and architectural decisions that prioritize type safety, immutability, and fail-fast principles.
+This is a customized version of the Laravel Starter Kit (Inertia & React) that maintains all the rigorous development standards while serving as a personal laboratory for:
 
-## Why This Starter Kit?
+- Exploring Laravel 12 features and best practices
+- Building modern UI components with React and Inertia.js
+- Implementing Laravolt-inspired features incrementally
+- Testing architectural patterns and development workflows
+- Creating reusable components and actions
 
-Modern PHP has evolved into a mature, type-safe language, yet many Laravel projects still operate with loose conventions and optional typing. This starter kit changes that paradigm by enforcing:
+### Based On
 
-- **Fully Actions-Oriented Architecture**: Every operation is encapsulated in a single-action class
-- **Cruddy by Design**: Standardized CRUD operations for all controllers, actions, and Inertia & React pages
-- **100% Type Coverage**: Every method, property, and parameter is explicitly typed
-- **Zero Tolerance for Code Smells**: Rector, PHPStan, ESLint, and Prettier at maximum strictness catch issues before they become bugs
-- **Immutable-First Architecture**: Data structures favor immutability to prevent unexpected mutations
-- **Fail-Fast Philosophy**: Errors are caught at compile-time, not runtime
-- **Automated Code Quality**: Pre-configured tools ensure consistent, pristine code across your entire team
-- **Just Better Laravel Defaults**: Thanks to **[Essentials](https://github.com/nunomaduro/essentials)** / strict models, auto eager loading, immutable dates, and more...
-- **AI Guidelines**: Integrated AI Guidelines to assist in maintaining code quality and consistency
-- **Full Testing Suite**: More than 150 tests with 100% code coverage using Pest
-- 
-This isn't just another Laravel boilerplate—it's a statement that PHP applications can and should be built with the same rigor as strongly-typed languages like Rust or TypeScript.
+- **Laravel Starter Kit (Inertia & React)**: [github.com/nunomaduro/laravel-starter-kit-inertia-react](https://github.com/nunomaduro/laravel-starter-kit-inertia-react)
+- Inspired by **Laravolt**: A Laravel package ecosystem for rapid application development
+
+## Core Principles
+
+This project maintains the strict standards of the original starter kit:
+
+- ✅ **Fully Actions-Oriented Architecture**: Every operation is encapsulated in a single-action class
+- ✅ **Cruddy by Design**: Standardized CRUD operations for all controllers, actions, and Inertia & React pages
+- ✅ **100% Type Coverage**: Every method, property, and parameter is explicitly typed
+- ✅ **Zero Tolerance for Code Smells**: Rector, PHPStan, ESLint, and Prettier at maximum strictness
+- ✅ **Immutable-First Architecture**: Data structures favor immutability to prevent unexpected mutations
+- ✅ **Fail-Fast Philosophy**: Errors are caught at compile-time, not runtime
+- ✅ **Automated Code Quality**: Pre-configured tools ensure consistent, pristine code
+- ✅ **Just Better Laravel Defaults**: Thanks to **[Essentials](https://github.com/nunomaduro/essentials)**
+- ✅ **AI Guidelines**: Integrated AI Guidelines to assist in maintaining code quality and consistency
+- ✅ **Full Testing Suite**: Comprehensive tests with 100% code coverage using Pest
+
+## Planned Laravolt Features
+
+As I build out this playground, I'll be implementing features inspired by my experience with Laravolt:
+
+- [ ] Advanced authentication flows (email verification, two-factor, social login)
+- [ ] User management and profile system
+- [ ] Role-based access control (RBAC)
+- [ ] Form builder components
+- [ ] Media library and file management
+- [ ] Activity logging and audit trails
+- [ ] Notification system
+- [ ] Settings management
+- [ ] Advanced search and filtering
+- [ ] Workflow and approval systems
+
+Each feature will be built with modern best practices, full type safety, and comprehensive testing.
 
 ## Getting Started
 
