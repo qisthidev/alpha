@@ -60,8 +60,8 @@ export default function Welcome() {
                                         </span>
                                     </span>
                                     <span>
-                                        Built with ultra-strict, type-safe Laravel
-                                        and React
+                                        Built with ultra-strict, type-safe
+                                        Laravel and React
                                     </span>
                                 </li>
                                 <li className="relative flex items-center gap-4 py-2 before:absolute before:top-0 before:bottom-1/2 before:left-[0.4rem] before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A]">
