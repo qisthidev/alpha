@@ -60,8 +60,8 @@ export default function Welcome() {
                                         </span>
                                     </span>
                                     <span>
-                                        Built with ultra-strict, type-safe Laravel
-                                        and React
+                                        Built with ultra-strict, type-safe
+                                        Laravel and React
                                     </span>
                                 </li>
                                 <li className="relative flex items-center gap-4 py-2 before:absolute before:top-0 before:bottom-1/2 before:left-[0.4rem] before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A]">
@@ -192,7 +192,6 @@ export default function Welcome() {
                                     />
                                 </g>
                                 <g
-                                    /** @ts-expect-error 'plus-darker' doesn't seem to be defined in the 'csstype' module */
                                     style={{ mixBlendMode: 'plus-darker' }}
                                     className="translate-y-0 opacity-100 transition-all delay-300 duration-750 starting:translate-y-4 starting:opacity-0"
                                 >
