@@ -17,6 +17,7 @@ Route::get('/', fn () => Inertia::render('welcome'))->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('dashboard', fn () => Inertia::render('dashboard'))->name('dashboard');
+    Route::get('catalyst-showcase', fn () => Inertia::render('catalyst-showcase'))->name('catalyst-showcase');
 });
 
 Route::middleware('auth')->group(function (): void {
