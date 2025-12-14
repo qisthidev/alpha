@@ -45,6 +45,8 @@ export default [
             'public',
             'bootstrap/ssr',
             'tailwind.config.js',
+            'coverage/**',
+            'build/**',
         ],
     },
     prettier, // Turn off all rules that might conflict with Prettier
