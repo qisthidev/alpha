@@ -10,7 +10,7 @@
         "playground",
         "laravolt"
     ],
-    "license": "MIT",
+    "license": "proprietary",
     "require": {
         "php": "^8.4.0",
         "inertiajs/inertia-laravel": "^2.0.10",
