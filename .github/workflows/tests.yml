@@ -101,6 +101,7 @@ jobs:
           path: |
             build/logs/clover.xml
             coverage/
+            sonar-project.properties
           retention-days: 1
 
   sonarcloud:
