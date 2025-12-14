@@ -49,13 +49,13 @@ jobs:
         run: ./vendor/bin/pest --coverage --coverage-clover coverage.xml
 
       - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
+        uses: sonarsource/sonarqube-scan-action@v3.1.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonar.qisthi.dev
         with:
           args: >
-            -Dsonar.projectKey=${{ github.repository_owner }}_${{ github.event.repository.name }}
+            -Dsonar.projectKey=qisthidev_alpha
             -Dsonar.sources=app,resources
             -Dsonar.tests=tests
             -Dsonar.php.coverage.reportPaths=coverage.xml
