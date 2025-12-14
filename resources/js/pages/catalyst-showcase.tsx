@@ -1,19 +1,48 @@
 'use client';
 
-import { Alert, AlertActions, AlertDescription, AlertTitle } from '@/components/catalyst/alert';
+import {
+    Alert,
+    AlertActions,
+    AlertDescription,
+    AlertTitle,
+} from '@/components/catalyst/alert';
 import { Avatar } from '@/components/catalyst/avatar';
 import { Badge } from '@/components/catalyst/badge';
 import { Button } from '@/components/catalyst/button';
-import { Checkbox, CheckboxField, CheckboxGroup } from '@/components/catalyst/checkbox';
-import { Dialog, DialogActions, DialogBody, DialogDescription, DialogTitle } from '@/components/catalyst/dialog';
+import {
+    Checkbox,
+    CheckboxField,
+    CheckboxGroup,
+} from '@/components/catalyst/checkbox';
+import {
+    Dialog,
+    DialogActions,
+    DialogBody,
+    DialogDescription,
+    DialogTitle,
+} from '@/components/catalyst/dialog';
 import { Divider } from '@/components/catalyst/divider';
-import { Description, Field, FieldGroup, Fieldset, Label, Legend } from '@/components/catalyst/fieldset';
+import {
+    Description,
+    Field,
+    FieldGroup,
+    Fieldset,
+    Label,
+    Legend,
+} from '@/components/catalyst/fieldset';
 import { Heading, Subheading } from '@/components/catalyst/heading';
 import { Input, InputGroup } from '@/components/catalyst/input';
 import { Radio, RadioField, RadioGroup } from '@/components/catalyst/radio';
 import { Select } from '@/components/catalyst/select';
 import { Switch, SwitchField } from '@/components/catalyst/switch';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/catalyst/table';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@/components/catalyst/table';
 import { Code, Strong, Text, TextLink } from '@/components/catalyst/text';
 import { Textarea } from '@/components/catalyst/textarea';
 import AppLayout from '@/layouts/app-layout';
@@ -43,7 +72,10 @@ export default function CatalystShowcase() {
                     <Heading>Catalyst UI Kit</Heading>
                     <Text className="mt-2">
                         A modern application UI kit built with{' '}
-                        <TextLink href="https://tailwindcss.com" target="_blank">
+                        <TextLink
+                            href="https://tailwindcss.com"
+                            target="_blank"
+                        >
                             Tailwind CSS
                         </TextLink>{' '}
                         and{' '}
@@ -59,7 +91,9 @@ export default function CatalystShowcase() {
                 {/* Buttons Section */}
                 <section>
                     <Subheading>Buttons</Subheading>
-                    <Text className="mt-1 mb-4">Various button styles and colors.</Text>
+                    <Text className="mt-1 mb-4">
+                        Various button styles and colors.
+                    </Text>
                     <div className="flex flex-wrap gap-4">
                         <Button>Default</Button>
                         <Button color="dark/zinc">Dark/Zinc</Button>
@@ -97,7 +131,9 @@ export default function CatalystShowcase() {
                 {/* Badges Section */}
                 <section>
                     <Subheading>Badges</Subheading>
-                    <Text className="mt-1 mb-4">Colorful status indicators and labels.</Text>
+                    <Text className="mt-1 mb-4">
+                        Colorful status indicators and labels.
+                    </Text>
                     <div className="flex flex-wrap gap-2">
                         <Badge>Default</Badge>
                         <Badge color="red">Red</Badge>
@@ -125,7 +161,9 @@ export default function CatalystShowcase() {
                 {/* Avatars Section */}
                 <section>
                     <Subheading>Avatars</Subheading>
-                    <Text className="mt-1 mb-4">User profile images and initials.</Text>
+                    <Text className="mt-1 mb-4">
+                        User profile images and initials.
+                    </Text>
                     <div className="flex items-center gap-4">
                         <Avatar
                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop"
@@ -139,15 +177,28 @@ export default function CatalystShowcase() {
                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop"
                             className="size-12"
                         />
-                        <Avatar initials="JD" className="size-8 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900" />
-                        <Avatar initials="AB" className="size-10 bg-indigo-500 text-white" />
-                        <Avatar initials="XY" className="size-12 bg-emerald-500 text-white" />
+                        <Avatar
+                            initials="JD"
+                            className="size-8 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"
+                        />
+                        <Avatar
+                            initials="AB"
+                            className="size-10 bg-indigo-500 text-white"
+                        />
+                        <Avatar
+                            initials="XY"
+                            className="size-12 bg-emerald-500 text-white"
+                        />
                         <Avatar
                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop"
                             className="size-10"
                             square
                         />
-                        <Avatar initials="SQ" className="size-10 bg-rose-500 text-white" square />
+                        <Avatar
+                            initials="SQ"
+                            className="size-10 bg-rose-500 text-white"
+                            square
+                        />
                     </div>
                 </section>
 
@@ -156,46 +207,74 @@ export default function CatalystShowcase() {
                 {/* Form Inputs Section */}
                 <section>
                     <Subheading>Form Inputs</Subheading>
-                    <Text className="mt-1 mb-4">Various form input components.</Text>
+                    <Text className="mt-1 mb-4">
+                        Various form input components.
+                    </Text>
                     <div className="max-w-xl">
                         <Fieldset>
                             <FieldGroup>
                                 <Field>
                                     <Label>Name</Label>
-                                    <Input name="name" placeholder="Enter your name" />
+                                    <Input
+                                        name="name"
+                                        placeholder="Enter your name"
+                                    />
                                 </Field>
                                 <Field>
                                     <Label>Email</Label>
-                                    <Description>We'll use this to contact you.</Description>
-                                    <Input type="email" name="email" placeholder="you@example.com" />
+                                    <Description>
+                                        We'll use this to contact you.
+                                    </Description>
+                                    <Input
+                                        type="email"
+                                        name="email"
+                                        placeholder="you@example.com"
+                                    />
                                 </Field>
                                 <Field>
                                     <Label>Search</Label>
                                     <InputGroup>
                                         <Search data-slot="icon" />
-                                        <Input name="search" placeholder="Search..." />
+                                        <Input
+                                            name="search"
+                                            placeholder="Search..."
+                                        />
                                     </InputGroup>
                                 </Field>
                                 <Field>
                                     <Label>Email with icon</Label>
                                     <InputGroup>
                                         <Mail data-slot="icon" />
-                                        <Input type="email" name="email_icon" placeholder="you@example.com" />
+                                        <Input
+                                            type="email"
+                                            name="email_icon"
+                                            placeholder="you@example.com"
+                                        />
                                     </InputGroup>
                                 </Field>
                                 <Field>
                                     <Label>Country</Label>
                                     <Select name="country">
-                                        <option value="">Select a country</option>
-                                        <option value="us">United States</option>
+                                        <option value="">
+                                            Select a country
+                                        </option>
+                                        <option value="us">
+                                            United States
+                                        </option>
                                         <option value="ca">Canada</option>
-                                        <option value="uk">United Kingdom</option>
+                                        <option value="uk">
+                                            United Kingdom
+                                        </option>
                                         <option value="au">Australia</option>
                                     </Select>
                                 </Field>
                                 <Field>
                                     <Label>Message</Label>
-                                    <Textarea name="message" placeholder="Write your message here..." rows={4} />
+                                    <Textarea
+                                        name="message"
+                                        placeholder="Write your message here..."
+                                        rows={4}
+                                    />
                                 </Field>
                             </FieldGroup>
                         </Fieldset>
@@ -207,26 +286,43 @@ export default function CatalystShowcase() {
                 {/* Checkboxes & Radio Section */}
                 <section>
                     <Subheading>Checkboxes & Radio Buttons</Subheading>
-                    <Text className="mt-1 mb-4">Selection controls for forms.</Text>
+                    <Text className="mt-1 mb-4">
+                        Selection controls for forms.
+                    </Text>
                     <div className="flex gap-12">
                         <Fieldset>
                             <Legend>Notifications</Legend>
-                            <Text>Select the notifications you'd like to receive.</Text>
+                            <Text>
+                                Select the notifications you'd like to receive.
+                            </Text>
                             <CheckboxGroup className="mt-4">
                                 <CheckboxField>
-                                    <Checkbox name="email_notifications" defaultChecked />
+                                    <Checkbox
+                                        name="email_notifications"
+                                        defaultChecked
+                                    />
                                     <Label>Email notifications</Label>
-                                    <Description>Get notified via email.</Description>
+                                    <Description>
+                                        Get notified via email.
+                                    </Description>
                                 </CheckboxField>
                                 <CheckboxField>
                                     <Checkbox name="sms_notifications" />
                                     <Label>SMS notifications</Label>
-                                    <Description>Get notified via SMS.</Description>
+                                    <Description>
+                                        Get notified via SMS.
+                                    </Description>
                                 </CheckboxField>
                                 <CheckboxField>
-                                    <Checkbox name="push_notifications" color="emerald" defaultChecked />
+                                    <Checkbox
+                                        name="push_notifications"
+                                        color="emerald"
+                                        defaultChecked
+                                    />
                                     <Label>Push notifications</Label>
-                                    <Description>Get push notifications on your device.</Description>
+                                    <Description>
+                                        Get push notifications on your device.
+                                    </Description>
                                 </CheckboxField>
                             </CheckboxGroup>
                         </Fieldset>
@@ -234,11 +330,17 @@ export default function CatalystShowcase() {
                         <Fieldset>
                             <Legend>Plan</Legend>
                             <Text>Select your preferred plan.</Text>
-                            <RadioGroup name="plan" defaultValue="startup" className="mt-4">
+                            <RadioGroup
+                                name="plan"
+                                defaultValue="startup"
+                                className="mt-4"
+                            >
                                 <RadioField>
                                     <Radio value="hobby" />
                                     <Label>Hobby</Label>
-                                    <Description>For personal projects.</Description>
+                                    <Description>
+                                        For personal projects.
+                                    </Description>
                                 </RadioField>
                                 <RadioField>
                                     <Radio value="startup" />
@@ -248,7 +350,9 @@ export default function CatalystShowcase() {
                                 <RadioField>
                                     <Radio value="enterprise" color="indigo" />
                                     <Label>Enterprise</Label>
-                                    <Description>For large organizations.</Description>
+                                    <Description>
+                                        For large organizations.
+                                    </Description>
                                 </RadioField>
                             </RadioGroup>
                         </Fieldset>
@@ -260,17 +364,31 @@ export default function CatalystShowcase() {
                 {/* Switch Section */}
                 <section>
                     <Subheading>Switches</Subheading>
-                    <Text className="mt-1 mb-4">Toggle switches for boolean settings.</Text>
+                    <Text className="mt-1 mb-4">
+                        Toggle switches for boolean settings.
+                    </Text>
                     <div className="max-w-md space-y-4">
                         <SwitchField>
                             <Label>Enable dark mode</Label>
-                            <Description>Toggle between light and dark themes.</Description>
-                            <Switch name="dark_mode" checked={switchEnabled} onChange={setSwitchEnabled} />
+                            <Description>
+                                Toggle between light and dark themes.
+                            </Description>
+                            <Switch
+                                name="dark_mode"
+                                checked={switchEnabled}
+                                onChange={setSwitchEnabled}
+                            />
                         </SwitchField>
                         <SwitchField>
                             <Label>Marketing emails</Label>
-                            <Description>Receive updates about new features.</Description>
-                            <Switch name="marketing" color="emerald" defaultChecked />
+                            <Description>
+                                Receive updates about new features.
+                            </Description>
+                            <Switch
+                                name="marketing"
+                                color="emerald"
+                                defaultChecked
+                            />
                         </SwitchField>
                         <SwitchField>
                             <Label>Disabled switch</Label>
@@ -285,7 +403,9 @@ export default function CatalystShowcase() {
                 {/* Table Section */}
                 <section>
                     <Subheading>Tables</Subheading>
-                    <Text className="mt-1 mb-4">Display tabular data with style.</Text>
+                    <Text className="mt-1 mb-4">
+                        Display tabular data with style.
+                    </Text>
                     <Table className="[--gutter:--spacing(6)]">
                         <TableHead>
                             <TableRow>
@@ -297,7 +417,9 @@ export default function CatalystShowcase() {
                         </TableHead>
                         <TableBody>
                             <TableRow>
-                                <TableCell className="font-medium">John Doe</TableCell>
+                                <TableCell className="font-medium">
+                                    John Doe
+                                </TableCell>
                                 <TableCell>john@example.com</TableCell>
                                 <TableCell>Admin</TableCell>
                                 <TableCell>
@@ -305,7 +427,9 @@ export default function CatalystShowcase() {
                                 </TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell className="font-medium">Jane Smith</TableCell>
+                                <TableCell className="font-medium">
+                                    Jane Smith
+                                </TableCell>
                                 <TableCell>jane@example.com</TableCell>
                                 <TableCell>Editor</TableCell>
                                 <TableCell>
@@ -313,7 +437,9 @@ export default function CatalystShowcase() {
                                 </TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell className="font-medium">Bob Johnson</TableCell>
+                                <TableCell className="font-medium">
+                                    Bob Johnson
+                                </TableCell>
                                 <TableCell>bob@example.com</TableCell>
                                 <TableCell>Viewer</TableCell>
                                 <TableCell>
@@ -321,7 +447,9 @@ export default function CatalystShowcase() {
                                 </TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell className="font-medium">Alice Brown</TableCell>
+                                <TableCell className="font-medium">
+                                    Alice Brown
+                                </TableCell>
                                 <TableCell>alice@example.com</TableCell>
                                 <TableCell>Admin</TableCell>
                                 <TableCell>
@@ -337,14 +465,18 @@ export default function CatalystShowcase() {
                 {/* Typography Section */}
                 <section>
                     <Subheading>Typography</Subheading>
-                    <Text className="mt-1 mb-4">Text styles and formatting.</Text>
+                    <Text className="mt-1 mb-4">
+                        Text styles and formatting.
+                    </Text>
                     <div className="space-y-4">
                         <Heading level={1}>Heading Level 1</Heading>
                         <Heading level={2}>Heading Level 2</Heading>
                         <Subheading level={3}>Subheading Level 3</Subheading>
                         <Text>
-                            This is regular body text. You can include <Strong>strong text</Strong> for emphasis, and{' '}
-                            <Code>inline code</Code> for technical content. Links can be styled with{' '}
+                            This is regular body text. You can include{' '}
+                            <Strong>strong text</Strong> for emphasis, and{' '}
+                            <Code>inline code</Code> for technical content.
+                            Links can be styled with{' '}
                             <TextLink href="#">TextLink component</TextLink>.
                         </Text>
                     </div>
@@ -355,16 +487,26 @@ export default function CatalystShowcase() {
                 {/* Dialog & Alert Section */}
                 <section>
                     <Subheading>Dialogs & Alerts</Subheading>
-                    <Text className="mt-1 mb-4">Modal dialogs and alert notifications.</Text>
+                    <Text className="mt-1 mb-4">
+                        Modal dialogs and alert notifications.
+                    </Text>
                     <div className="flex gap-4">
-                        <Button onClick={() => setIsDialogOpen(true)}>Open Dialog</Button>
-                        <Button color="red" onClick={() => setIsAlertOpen(true)}>
+                        <Button onClick={() => setIsDialogOpen(true)}>
+                            Open Dialog
+                        </Button>
+                        <Button
+                            color="red"
+                            onClick={() => setIsAlertOpen(true)}
+                        >
                             Open Alert
                         </Button>
                     </div>
 
                     {/* Dialog */}
-                    <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+                    <Dialog
+                        open={isDialogOpen}
+                        onClose={() => setIsDialogOpen(false)}
+                    >
                         <DialogTitle>Edit Profile</DialogTitle>
                         <DialogDescription>
                             Make changes to your profile information below.
@@ -373,33 +515,52 @@ export default function CatalystShowcase() {
                             <FieldGroup>
                                 <Field>
                                     <Label>Full Name</Label>
-                                    <Input name="fullname" placeholder="John Doe" />
+                                    <Input
+                                        name="fullname"
+                                        placeholder="John Doe"
+                                    />
                                 </Field>
                                 <Field>
                                     <Label>Email</Label>
-                                    <Input type="email" name="dialog_email" placeholder="john@example.com" />
+                                    <Input
+                                        type="email"
+                                        name="dialog_email"
+                                        placeholder="john@example.com"
+                                    />
                                 </Field>
                             </FieldGroup>
                         </DialogBody>
                         <DialogActions>
-                            <Button plain onClick={() => setIsDialogOpen(false)}>
+                            <Button
+                                plain
+                                onClick={() => setIsDialogOpen(false)}
+                            >
                                 Cancel
                             </Button>
-                            <Button onClick={() => setIsDialogOpen(false)}>Save Changes</Button>
+                            <Button onClick={() => setIsDialogOpen(false)}>
+                                Save Changes
+                            </Button>
                         </DialogActions>
                     </Dialog>
 
                     {/* Alert */}
-                    <Alert open={isAlertOpen} onClose={() => setIsAlertOpen(false)}>
+                    <Alert
+                        open={isAlertOpen}
+                        onClose={() => setIsAlertOpen(false)}
+                    >
                         <AlertTitle>Delete Account</AlertTitle>
                         <AlertDescription>
-                            Are you sure you want to delete your account? This action cannot be undone.
+                            Are you sure you want to delete your account? This
+                            action cannot be undone.
                         </AlertDescription>
                         <AlertActions>
                             <Button plain onClick={() => setIsAlertOpen(false)}>
                                 Cancel
                             </Button>
-                            <Button color="red" onClick={() => setIsAlertOpen(false)}>
+                            <Button
+                                color="red"
+                                onClick={() => setIsAlertOpen(false)}
+                            >
                                 Delete
                             </Button>
                         </AlertActions>
@@ -411,7 +572,9 @@ export default function CatalystShowcase() {
                 {/* Checkbox Colors Section */}
                 <section>
                     <Subheading>Checkbox Colors</Subheading>
-                    <Text className="mt-1 mb-4">Checkboxes in various colors.</Text>
+                    <Text className="mt-1 mb-4">
+                        Checkboxes in various colors.
+                    </Text>
                     <div className="flex flex-wrap gap-4">
                         <Checkbox defaultChecked />
                         <Checkbox color="red" defaultChecked />
@@ -439,7 +602,9 @@ export default function CatalystShowcase() {
                 {/* Switch Colors Section */}
                 <section>
                     <Subheading>Switch Colors</Subheading>
-                    <Text className="mt-1 mb-4">Switches in various colors.</Text>
+                    <Text className="mt-1 mb-4">
+                        Switches in various colors.
+                    </Text>
                     <div className="flex flex-wrap gap-4">
                         <Switch defaultChecked />
                         <Switch color="red" defaultChecked />
