@@ -2,6 +2,7 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { ArrowLeft, Calendar, Mail, User as UserIcon } from 'lucide-react';
 
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
     Card,
@@ -10,7 +11,6 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import AppLayout from '@/layouts/app-layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -42,7 +42,7 @@ export default function Show({ user }: Props) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={`User: ${user.name}`} />
 
-            <div className="space-y-6">
+            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <Link href="/user-management">
@@ -125,9 +125,7 @@ export default function Show({ user }: Props) {
                                     Created At
                                 </div>
                                 <div className="text-lg font-semibold">
-                                    {new Date(
-                                        user.created_at
-                                    ).toLocaleString()}
+                                    {new Date(user.created_at).toLocaleString()}
                                 </div>
                             </div>
 
@@ -137,9 +135,7 @@ export default function Show({ user }: Props) {
                                     Updated At
                                 </div>
                                 <div className="text-lg font-semibold">
-                                    {new Date(
-                                        user.updated_at
-                                    ).toLocaleString()}
+                                    {new Date(user.updated_at).toLocaleString()}
                                 </div>
                             </div>
 
@@ -150,7 +146,7 @@ export default function Show({ user }: Props) {
                                     </div>
                                     <div className="text-lg font-semibold">
                                         {new Date(
-                                            user.email_verified_at
+                                            user.email_verified_at,
                                         ).toLocaleString()}
                                     </div>
                                 </div>

@@ -59,7 +59,7 @@ final readonly class UserManagementController
             $request->string('password')->value(),
         );
 
-        return redirect()->route('user-management.index')
+        return to_route('user-management.index')
             ->with('success', 'User created successfully.');
     }
 
@@ -77,7 +77,7 @@ final readonly class UserManagementController
 
         $action->handle($user, $attributes);
 
-        return redirect()->route('user-management.index')
+        return to_route('user-management.index')
             ->with('success', 'User updated successfully.');
     }
 
@@ -85,7 +85,7 @@ final readonly class UserManagementController
     {
         $action->handle($user);
 
-        return redirect()->route('user-management.index')
+        return to_route('user-management.index')
             ->with('success', 'User deleted successfully.');
     }
 }

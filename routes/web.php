@@ -21,7 +21,8 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('catalyst-showcase', fn () => Inertia::render('catalyst-showcase'))->name('catalyst-showcase');
 
     // User Management...
-    Route::resource('user-management', UserManagementController::class);
+    Route::resource('user-management', UserManagementController::class)
+        ->parameters(['user-management' => 'user']);
 });
 
 Route::middleware('auth')->group(function (): void {

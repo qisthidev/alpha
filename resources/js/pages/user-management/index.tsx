@@ -1,10 +1,9 @@
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { Pencil, Plus, Search, Trash2, Eye } from 'lucide-react';
+import { Eye, Pencil, Plus, Search, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
     Card,
     CardContent,
@@ -12,6 +11,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import AppLayout from '@/layouts/app-layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -65,8 +65,12 @@ export default function Index({ users, filters }: Props) {
     const handleSearch = () => {
         router.get(
             '/user-management',
-            { search, sort_by: filters.sort_by, sort_direction: filters.sort_direction },
-            { preserveState: true }
+            {
+                search,
+                sort_by: filters.sort_by,
+                sort_direction: filters.sort_direction,
+            },
+            { preserveState: true },
         );
     };
 
@@ -78,7 +82,7 @@ export default function Index({ users, filters }: Props) {
         router.get(
             '/user-management',
             { search, sort_by: column, sort_direction: direction },
-            { preserveState: true }
+            { preserveState: true },
         );
     };
 
@@ -92,7 +96,7 @@ export default function Index({ users, filters }: Props) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="User Management" />
 
-            <div className="space-y-6">
+            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex items-center justify-between">
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight">
@@ -121,7 +125,7 @@ export default function Index({ users, filters }: Props) {
                     <CardContent>
                         <div className="mb-4 flex gap-2">
                             <div className="relative flex-1">
-                                <Search className="absolute left-2 top-2.5 size-4 text-muted-foreground" />
+                                <Search className="absolute top-2.5 left-2 size-4 text-muted-foreground" />
                                 <Input
                                     placeholder="Search by name or email..."
                                     value={search}
@@ -229,7 +233,7 @@ export default function Index({ users, filters }: Props) {
                                                 </td>
                                                 <td className="px-4 py-3 text-sm text-muted-foreground">
                                                     {new Date(
-                                                        user.created_at
+                                                        user.created_at,
                                                     ).toLocaleDateString()}
                                                 </td>
                                                 <td className="px-4 py-3 text-right">
@@ -259,7 +263,7 @@ export default function Index({ users, filters }: Props) {
                                                             size="sm"
                                                             onClick={() =>
                                                                 handleDelete(
-                                                                    user.id
+                                                                    user.id,
                                                                 )
                                                             }
                                                         >

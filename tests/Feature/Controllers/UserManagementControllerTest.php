@@ -58,7 +58,7 @@ it('may search users by email', function (): void {
 });
 
 it('may sort users by name', function (): void {
-    $user = User::factory()->create();
+    $user = User::factory()->create(['name' => 'Zoe Admin']);
     $userA = User::factory()->create(['name' => 'Alice']);
     $userB = User::factory()->create(['name' => 'Bob']);
     $userC = User::factory()->create(['name' => 'Charlie']);

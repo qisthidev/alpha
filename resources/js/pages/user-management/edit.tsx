@@ -54,7 +54,7 @@ export default function Edit({ user }: Props) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={`Edit User: ${user.name}`} />
 
-            <div className="space-y-6">
+            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex items-center gap-4">
                     <Link href="/user-management">
                         <Button variant="ghost" size="sm">

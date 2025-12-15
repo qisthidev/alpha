@@ -14,6 +14,7 @@ final readonly class ListUsers
      * List users with pagination, search, and sorting.
      *
      * @param  array{search?: string|null, sort_by?: string, sort_direction?: string, per_page?: int}  $filters
+     * @return LengthAwarePaginator<int, User>
      */
     public function handle(array $filters = []): LengthAwarePaginator
     {
@@ -39,7 +40,7 @@ final readonly class ListUsers
         }
 
         // Validate sort direction
-        if (! in_array(strtolower($sortDirection), ['asc', 'desc'], true)) {
+        if (! in_array(mb_strtolower($sortDirection), ['asc', 'desc'], true)) {
             $sortDirection = 'desc';
         }
 
