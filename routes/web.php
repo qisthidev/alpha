@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserEmailResetNotification;
 use App\Http\Controllers\UserEmailVerification;
 use App\Http\Controllers\UserEmailVerificationNotificationController;
+use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\UserPasswordController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserTwoFactorAuthenticationController;
@@ -18,6 +19,9 @@ Route::get('/', fn () => Inertia::render('welcome'))->name('home');
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('dashboard', fn () => Inertia::render('dashboard'))->name('dashboard');
     Route::get('catalyst-showcase', fn () => Inertia::render('catalyst-showcase'))->name('catalyst-showcase');
+
+    // User Management...
+    Route::resource('user-management', UserManagementController::class);
 });
 
 Route::middleware('auth')->group(function (): void {
