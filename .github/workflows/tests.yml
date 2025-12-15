@@ -103,8 +103,8 @@ jobs:
             coverage/
           retention-days: 1
 
-  sonarcloud:
-    name: SonarCloud Analysis
+  sonarqube:
+    name: SonarQube Analysis
     runs-on: ubuntu-latest
     needs: ci
     if: success()
@@ -135,8 +135,8 @@ jobs:
             exit 1
           fi
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
