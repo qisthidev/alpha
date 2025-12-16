@@ -338,14 +338,14 @@ export default function Index({ users, filters }: Props) {
                                 </div>
                                 <div className="flex gap-2">
                                     {users.links.map((link, index) => {
-                                        // Decode HTML entities safely
+                                        // Decode HTML entities safely - process &amp; last to avoid double-decoding
                                         const decodedLabel = link.label
                                             .replace(/&laquo;/g, '«')
                                             .replace(/&raquo;/g, '»')
-                                            .replace(/&amp;/g, '&')
                                             .replace(/&lt;/g, '<')
                                             .replace(/&gt;/g, '>')
-                                            .replace(/&quot;/g, '"');
+                                            .replace(/&quot;/g, '"')
+                                            .replace(/&amp;/g, '&');
 
                                         return (
                                             <Button
