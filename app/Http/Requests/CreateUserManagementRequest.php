@@ -12,7 +12,7 @@ final class CreateUserManagementRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->is_admin ?? false;
     }
 
     /**

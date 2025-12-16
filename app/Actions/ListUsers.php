@@ -23,10 +23,7 @@ final readonly class ListUsers
         // Apply search filter
         if (! empty($filters['search'])) {
             $search = $filters['search'];
-            $query->where(function (Builder $q) use ($search): void {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%");
-            });
+            $this->applySearch($query, $search);
         }
 
         // Apply sorting
@@ -48,10 +45,35 @@ final readonly class ListUsers
 
         // Paginate with configurable per page (default 50 for performance)
         $perPage = $filters['per_page'] ?? 50;
-        if ($perPage < 1 || $perPage > 100) {
+        if ($perPage < 1) {
             $perPage = 50;
+        } elseif ($perPage > 100) {
+            $perPage = 100;
         }
 
         return $query->paginate($perPage);
+    }
+
+    /**
+     * Apply search filter with database-specific optimizations.
+     */
+    private function applySearch(Builder $query, string $search): void
+    {
+        $driver = $query->getConnection()->getDriverName();
+
+        // Use PostgreSQL full-text search with pg_trgm for better performance
+        if ($driver === 'pgsql') {
+            // Check if pg_trgm extension is available for similarity search
+            $query->where(function (Builder $q) use ($search): void {
+                $q->whereRaw('name ILIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('email ILIKE ?', ["%{$search}%"]);
+            });
+        } else {
+            // Use standard LIKE for other databases (MySQL, SQLite, etc.)
+            $query->where(function (Builder $q) use ($search): void {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
     }
 }

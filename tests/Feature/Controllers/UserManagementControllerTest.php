@@ -6,9 +6,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 it('renders user management index page', function (): void {
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
-    $response = $this->actingAs($user)
+    $response = $this->actingAs($admin)
         ->get(route('user-management.index'));
 
     $response->assertOk()
@@ -16,10 +16,10 @@ it('renders user management index page', function (): void {
 });
 
 it('may list users with pagination', function (): void {
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
     User::factory()->count(55)->create();
 
-    $response = $this->actingAs($user)
+    $response = $this->actingAs($admin)
         ->get(route('user-management.index'));
 
     $response->assertOk()
@@ -30,11 +30,11 @@ it('may list users with pagination', function (): void {
 });
 
 it('may search users by name', function (): void {
-    $user = User::factory()->create(['name' => 'John Doe']);
+    $user = User::factory()->create(['name' => 'John Doe', 'is_admin' => false]);
     User::factory()->create(['name' => 'Jane Smith']);
     User::factory()->create(['name' => 'Bob Johnson']);
 
-    $response = $this->actingAs($user)
+    $response = $this->actingAs($admin)
         ->get(route('user-management.index', ['search' => 'John']));
 
     $response->assertOk()
@@ -44,11 +44,11 @@ it('may search users by name', function (): void {
 });
 
 it('may search users by email', function (): void {
-    $user = User::factory()->create(['email' => 'john@example.com']);
+    $user = User::factory()->create(['email' => 'john@example.com', 'is_admin' => false]);
     User::factory()->create(['email' => 'jane@example.com']);
     User::factory()->create(['email' => 'bob@test.com']);
 
-    $response = $this->actingAs($user)
+    $response = $this->actingAs($admin)
         ->get(route('user-management.index', ['search' => 'example']));
 
     $response->assertOk()
@@ -63,7 +63,7 @@ it('may sort users by name', function (): void {
     $userB = User::factory()->create(['name' => 'Bob']);
     $userC = User::factory()->create(['name' => 'Charlie']);
 
-    $response = $this->actingAs($user)
+    $response = $this->actingAs($admin)
         ->get(route('user-management.index', ['sort_by' => 'name', 'sort_direction' => 'asc']));
 
     $response->assertOk()
@@ -88,9 +88,9 @@ it('renders user show page', function (): void {
 });
 
 it('renders user create page', function (): void {
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
-    $response = $this->actingAs($user)
+    $response = $this->actingAs($admin)
         ->get(route('user-management.create'));
 
     $response->assertOk()
@@ -235,7 +235,7 @@ it('may update a user', function (): void {
 
 it('requires name when updating user', function (): void {
     $admin = User::factory()->create();
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->actingAs($admin)
         ->patch(route('user-management.update', $user), [
@@ -247,7 +247,7 @@ it('requires name when updating user', function (): void {
 
 it('requires email when updating user', function (): void {
     $admin = User::factory()->create();
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->actingAs($admin)
         ->patch(route('user-management.update', $user), [
@@ -259,7 +259,7 @@ it('requires email when updating user', function (): void {
 
 it('requires valid email when updating user', function (): void {
     $admin = User::factory()->create();
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->actingAs($admin)
         ->patch(route('user-management.update', $user), [
@@ -307,7 +307,7 @@ it('allows same email when updating user', function (): void {
 
 it('may delete a user', function (): void {
     $admin = User::factory()->create();
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->actingAs($admin)
         ->delete(route('user-management.destroy', $user));
@@ -341,7 +341,7 @@ it('requires authentication to store user', function (): void {
 });
 
 it('requires authentication to show user', function (): void {
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->get(route('user-management.show', $user));
 
@@ -349,7 +349,7 @@ it('requires authentication to show user', function (): void {
 });
 
 it('requires authentication to edit user', function (): void {
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->get(route('user-management.edit', $user));
 
@@ -357,7 +357,7 @@ it('requires authentication to edit user', function (): void {
 });
 
 it('requires authentication to update user', function (): void {
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->patch(route('user-management.update', $user), [
         'name' => 'New Name',
@@ -368,9 +368,43 @@ it('requires authentication to update user', function (): void {
 });
 
 it('requires authentication to delete user', function (): void {
-    $user = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->delete(route('user-management.destroy', $user));
 
     $response->assertRedirect(route('login'));
+});
+
+it('prevents admin from deleting themselves', function (): void {
+    $admin = User::factory()->create(['is_admin' => true]);
+
+    $response = $this->actingAs($admin)
+        ->delete(route('user-management.destroy', $admin));
+
+    $response->assertForbidden();
+
+    expect($admin->fresh())->not->toBeNull();
+});
+
+it('prevents non-admin users from accessing user management', function (): void {
+    $regularUser = User::factory()->create(['is_admin' => false]);
+
+    $response = $this->actingAs($regularUser)
+        ->get(route('user-management.index'));
+
+    $response->assertForbidden();
+});
+
+it('prevents non-admin users from creating users', function (): void {
+    $regularUser = User::factory()->create(['is_admin' => false]);
+
+    $response = $this->actingAs($regularUser)
+        ->post(route('user-management.store'), [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'password1234',
+            'password_confirmation' => 'password1234',
+        ]);
+
+    $response->assertForbidden();
 });

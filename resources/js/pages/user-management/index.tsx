@@ -3,6 +3,7 @@ import { Head, Link, router } from '@inertiajs/react';
 import { Eye, Pencil, Plus, Search, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
+import DeleteConfirmDialog from '@/components/delete-confirm-dialog';
 import { Button } from '@/components/ui/button';
 import {
     Card,
@@ -61,6 +62,11 @@ interface Props {
 
 export default function Index({ users, filters }: Props) {
     const [search, setSearch] = useState(filters.search || '');
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [userToDelete, setUserToDelete] = useState<{
+        id: number;
+        name: string;
+    } | null>(null);
 
     const handleSearch = () => {
         router.get(
@@ -86,9 +92,14 @@ export default function Index({ users, filters }: Props) {
         );
     };
 
-    const handleDelete = (userId: number) => {
-        if (confirm('Are you sure you want to delete this user?')) {
-            router.delete(`/user-management/${userId}`);
+    const handleDeleteClick = (userId: number, userName: string) => {
+        setUserToDelete({ id: userId, name: userName });
+        setDeleteDialogOpen(true);
+    };
+
+    const handleDeleteConfirm = () => {
+        if (userToDelete) {
+            router.delete(`/user-management/${userToDelete.id}`);
         }
     };
 
@@ -149,6 +160,15 @@ export default function Index({ users, filters }: Props) {
                                             <th
                                                 className="cursor-pointer px-4 py-3 text-left text-sm font-medium hover:bg-muted"
                                                 onClick={() => handleSort('id')}
+                                                aria-label="Sort by ID"
+                                                aria-sort={
+                                                    filters.sort_by === 'id'
+                                                        ? filters.sort_direction ===
+                                                          'asc'
+                                                            ? 'ascending'
+                                                            : 'descending'
+                                                        : undefined
+                                                }
                                             >
                                                 ID{' '}
                                                 {filters.sort_by === 'id' &&
@@ -162,6 +182,15 @@ export default function Index({ users, filters }: Props) {
                                                 onClick={() =>
                                                     handleSort('name')
                                                 }
+                                                aria-label="Sort by Name"
+                                                aria-sort={
+                                                    filters.sort_by === 'name'
+                                                        ? filters.sort_direction ===
+                                                          'asc'
+                                                            ? 'ascending'
+                                                            : 'descending'
+                                                        : undefined
+                                                }
                                             >
                                                 Name{' '}
                                                 {filters.sort_by === 'name' &&
@@ -174,6 +203,15 @@ export default function Index({ users, filters }: Props) {
                                                 className="cursor-pointer px-4 py-3 text-left text-sm font-medium hover:bg-muted"
                                                 onClick={() =>
                                                     handleSort('email')
+                                                }
+                                                aria-label="Sort by Email"
+                                                aria-sort={
+                                                    filters.sort_by === 'email'
+                                                        ? filters.sort_direction ===
+                                                          'asc'
+                                                            ? 'ascending'
+                                                            : 'descending'
+                                                        : undefined
                                                 }
                                             >
                                                 Email{' '}
@@ -190,6 +228,16 @@ export default function Index({ users, filters }: Props) {
                                                 className="cursor-pointer px-4 py-3 text-left text-sm font-medium hover:bg-muted"
                                                 onClick={() =>
                                                     handleSort('created_at')
+                                                }
+                                                aria-label="Sort by Created Date"
+                                                aria-sort={
+                                                    filters.sort_by ===
+                                                    'created_at'
+                                                        ? filters.sort_direction ===
+                                                          'asc'
+                                                            ? 'ascending'
+                                                            : 'descending'
+                                                        : undefined
                                                 }
                                             >
                                                 Created{' '}
@@ -244,6 +292,7 @@ export default function Index({ users, filters }: Props) {
                                                             <Button
                                                                 variant="ghost"
                                                                 size="sm"
+                                                                aria-label={`View details for ${user.name}`}
                                                             >
                                                                 <Eye className="size-4" />
                                                             </Button>
@@ -254,6 +303,7 @@ export default function Index({ users, filters }: Props) {
                                                             <Button
                                                                 variant="ghost"
                                                                 size="sm"
+                                                                aria-label={`Edit ${user.name}`}
                                                             >
                                                                 <Pencil className="size-4" />
                                                             </Button>
@@ -261,9 +311,11 @@ export default function Index({ users, filters }: Props) {
                                                         <Button
                                                             variant="ghost"
                                                             size="sm"
+                                                            aria-label={`Delete ${user.name}`}
                                                             onClick={() =>
-                                                                handleDelete(
+                                                                handleDeleteClick(
                                                                     user.id,
+                                                                    user.name,
                                                                 )
                                                             }
                                                         >
@@ -285,32 +337,49 @@ export default function Index({ users, filters }: Props) {
                                     {users.last_page}
                                 </div>
                                 <div className="flex gap-2">
-                                    {users.links.map((link, index) => (
-                                        <Button
-                                            key={index}
-                                            variant={
-                                                link.active
-                                                    ? 'default'
-                                                    : 'outline'
-                                            }
-                                            size="sm"
-                                            disabled={!link.url}
-                                            onClick={() => {
-                                                if (link.url) {
-                                                    router.get(link.url);
+                                    {users.links.map((link, index) => {
+                                        // Decode HTML entities safely
+                                        const decodedLabel = link.label
+                                            .replace(/&laquo;/g, '«')
+                                            .replace(/&raquo;/g, '»')
+                                            .replace(/&amp;/g, '&')
+                                            .replace(/&lt;/g, '<')
+                                            .replace(/&gt;/g, '>')
+                                            .replace(/&quot;/g, '"');
+
+                                        return (
+                                            <Button
+                                                key={index}
+                                                variant={
+                                                    link.active
+                                                        ? 'default'
+                                                        : 'outline'
                                                 }
-                                            }}
-                                            dangerouslySetInnerHTML={{
-                                                __html: link.label,
-                                            }}
-                                        />
-                                    ))}
+                                                size="sm"
+                                                disabled={!link.url}
+                                                onClick={() => {
+                                                    if (link.url) {
+                                                        router.get(link.url);
+                                                    }
+                                                }}
+                                            >
+                                                {decodedLabel}
+                                            </Button>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}
                     </CardContent>
                 </Card>
             </div>
+
+            <DeleteConfirmDialog
+                open={deleteDialogOpen}
+                onOpenChange={setDeleteDialogOpen}
+                onConfirm={handleDeleteConfirm}
+                userName={userToDelete?.name}
+            />
         </AppLayout>
     );
 }

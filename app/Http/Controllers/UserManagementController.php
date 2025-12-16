@@ -19,6 +19,11 @@ use Inertia\Response;
 
 final readonly class UserManagementController
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
     public function index(Request $request, ListUsers $action): Response
     {
         /** @var array{search?: string|null, sort_by?: string, sort_direction?: string, per_page?: int} $filters */

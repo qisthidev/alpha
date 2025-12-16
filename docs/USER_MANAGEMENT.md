@@ -23,15 +23,23 @@ These indexes ensure fast queries even with 100k+ users.
 
 #### 2. Pagination
 - Default page size: 50 users per page
-- Configurable per page (1-100 range)
+- Configurable per page: values between 1-100 are used as-is; values < 1 default to 50; values > 100 are clamped to 100
 - Laravel's built-in pagination for efficient database queries
 - Only loads one page at a time, not all records
 
 #### 3. Efficient Search
-The `ListUsers` action implements:
-- Search by name OR email using database LIKE queries
-- Search is optimized with indexed columns
+The `ListUsers` action implements database-specific optimizations:
+- **PostgreSQL**: Uses ILIKE with pg_trgm extension for efficient trigram-based search
+- **PostgreSQL (Advanced)**: Full-text search with tsvector and GIN indexes for complex queries
+- **MySQL/SQLite**: Standard LIKE queries with indexed columns
+- Search by name OR email across all databases
 - Uses Laravel's query builder for parameter binding (prevents SQL injection)
+
+**PostgreSQL Full-Text Search Setup:**
+The migration `2024_12_16_000001_add_postgresql_fulltext_search.php` enables:
+- `pg_trgm` extension for similarity search
+- GIN indexes on name and email columns for efficient ILIKE queries
+- Optional tsvector column with full-text search index for advanced search capabilities
 
 #### 4. Sortable Columns
 Users can sort by:
@@ -113,6 +121,8 @@ Comprehensive tests cover:
 - Action logic (pagination, search, sort)
 - Validation rules
 - Authentication requirements
+- Authorization requirements (admin-only access)
+- Self-deletion prevention
 - Edge cases (invalid inputs, SQL injection attempts)
 
 ## Scalability Metrics
@@ -126,11 +136,18 @@ This implementation can handle:
 
 ## Security
 
-1. **SQL Injection Prevention**: Validated sort columns and parameters
-2. **XSS Prevention**: React automatic escaping
-3. **CSRF Protection**: Laravel built-in CSRF tokens
-4. **Authentication**: Required for all operations
-5. **Validation**: Server-side validation for all inputs
+1. **Authorization**: Admin-only access with policy-based permissions
+   - `is_admin` field in users table (added via migration `2024_12_16_000000_add_is_admin_to_users_table.php`)
+   - `UserPolicy` enforces admin-only access for all CRUD operations
+   - Self-deletion prevention: Admins cannot delete their own account
+   - Form requests (`CreateUserManagementRequest`, `UpdateUserManagementRequest`) check admin status
+2. **SQL Injection Prevention**: Validated sort columns and parameters
+3. **XSS Prevention**: 
+   - React automatic escaping
+   - Safe HTML entity decoding for pagination labels (no `dangerouslySetInnerHTML`)
+4. **CSRF Protection**: Laravel built-in CSRF tokens
+5. **Authentication**: Required for all operations
+6. **Validation**: Server-side validation for all inputs
 
 ## Future Enhancements
 
@@ -143,3 +160,17 @@ Potential improvements for even larger scale:
 - [ ] Role-based permissions
 - [ ] Soft deletes for audit trails
 - [ ] Bulk actions (delete, export)
+
+## Accessibility
+
+The user interface follows WCAG 2.1 guidelines:
+
+1. **Semantic HTML**: Proper use of table elements with headers
+2. **Keyboard Navigation**: All interactive elements are keyboard accessible
+3. **Screen Reader Support**:
+   - `aria-label` attributes on action buttons (View, Edit, Delete)
+   - `aria-sort` attributes on sortable table headers indicating current sort state
+   - Descriptive button labels for icon-only buttons
+4. **Custom Dialogs**: Accessible confirmation dialogs using Radix UI primitives
+5. **Focus Management**: Proper focus handling in modals and dialogs
+

@@ -119,7 +119,7 @@ it('limits per page to maximum of 100', function (): void {
     $action = new ListUsers;
     $result = $action->handle(['per_page' => 200]);
 
-    expect($result->perPage())->toBe(50);
+    expect($result->perPage())->toBe(100);
 });
 
 it('limits per page to minimum of 1', function (): void {
