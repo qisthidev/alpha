@@ -13,6 +13,13 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -75,6 +82,20 @@ export default function Index({ users, filters }: Props) {
                 search,
                 sort_by: filters.sort_by,
                 sort_direction: filters.sort_direction,
+                per_page: filters.per_page,
+            },
+            { preserveState: true },
+        );
+    };
+
+    const handlePerPageChange = (value: string) => {
+        router.get(
+            '/user-management',
+            {
+                search,
+                sort_by: filters.sort_by,
+                sort_direction: filters.sort_direction,
+                per_page: value,
             },
             { preserveState: true },
         );
@@ -87,7 +108,12 @@ export default function Index({ users, filters }: Props) {
                 : 'asc';
         router.get(
             '/user-management',
-            { search, sort_by: column, sort_direction: direction },
+            {
+                search,
+                sort_by: column,
+                sort_direction: direction,
+                per_page: filters.per_page,
+            },
             { preserveState: true },
         );
     };
@@ -135,6 +161,21 @@ export default function Index({ users, filters }: Props) {
                     </CardHeader>
                     <CardContent>
                         <div className="mb-4 flex gap-2">
+                            <Select
+                                value={String(filters.per_page || 15)}
+                                onValueChange={handlePerPageChange}
+                            >
+                                <SelectTrigger className="w-[100px]">
+                                    <SelectValue placeholder="Per page" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="10">10</SelectItem>
+                                    <SelectItem value="15">15</SelectItem>
+                                    <SelectItem value="25">25</SelectItem>
+                                    <SelectItem value="50">50</SelectItem>
+                                    <SelectItem value="100">100</SelectItem>
+                                </SelectContent>
+                            </Select>
                             <div className="relative flex-1">
                                 <Search className="absolute top-2.5 left-2 size-4 text-muted-foreground" />
                                 <Input
@@ -359,7 +400,20 @@ export default function Index({ users, filters }: Props) {
                                                 disabled={!link.url}
                                                 onClick={() => {
                                                     if (link.url) {
-                                                        router.get(link.url);
+                                                        const url = new URL(
+                                                            link.url,
+                                                        );
+                                                        if (filters.per_page) {
+                                                            url.searchParams.set(
+                                                                'per_page',
+                                                                String(
+                                                                    filters.per_page,
+                                                                ),
+                                                            );
+                                                        }
+                                                        router.get(
+                                                            url.toString(),
+                                                        );
                                                     }
                                                 }}
                                             >

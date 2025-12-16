@@ -56,10 +56,14 @@ final readonly class ListUsers
 
     /**
      * Apply search filter with database-specific optimizations.
+     *
+     * @param  Builder<User>  $query
      */
     private function applySearch(Builder $query, string $search): void
     {
-        $driver = $query->getConnection()->getDriverName();
+        /** @var \Illuminate\Database\Connection $connection */
+        $connection = $query->getConnection();
+        $driver = $connection->getDriverName();
 
         // Use PostgreSQL full-text search with pg_trgm for better performance
         if ($driver === 'pgsql') {

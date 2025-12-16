@@ -14,18 +14,15 @@ use App\Http\Requests\UpdateUserManagementRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
 final readonly class UserManagementController
 {
-    public function __construct()
-    {
-        $this->authorizeResource(User::class, 'user');
-    }
-
     public function index(Request $request, ListUsers $action): Response
     {
+        Gate::authorize('viewAny', User::class);
         /** @var array{search?: string|null, sort_by?: string, sort_direction?: string, per_page?: int} $filters */
         $filters = [
             'search' => $request->query('search'),
@@ -44,6 +41,8 @@ final readonly class UserManagementController
 
     public function show(User $user, ShowUser $action): Response
     {
+        Gate::authorize('view', User::class);
+
         return Inertia::render('user-management/show', [
             'user' => $action->handle($user),
         ]);
@@ -51,11 +50,15 @@ final readonly class UserManagementController
 
     public function create(): Response
     {
+        Gate::authorize('create', User::class);
+
         return Inertia::render('user-management/create');
     }
 
     public function store(CreateUserManagementRequest $request, CreateUser $action): RedirectResponse
     {
+        Gate::authorize('create', User::class);
+
         /** @var array<string, mixed> $attributes */
         $attributes = $request->safe()->except('password');
 
@@ -70,6 +73,8 @@ final readonly class UserManagementController
 
     public function edit(User $user): Response
     {
+        Gate::authorize('update', User::class);
+
         return Inertia::render('user-management/edit', [
             'user' => $user,
         ]);
@@ -77,6 +82,8 @@ final readonly class UserManagementController
 
     public function update(UpdateUserManagementRequest $request, User $user, UpdateUser $action): RedirectResponse
     {
+        Gate::authorize('update', User::class);
+
         /** @var array<string, mixed> $attributes */
         $attributes = $request->safe()->all();
 
@@ -88,6 +95,8 @@ final readonly class UserManagementController
 
     public function destroy(User $user, DeleteUser $action): RedirectResponse
     {
+        Gate::authorize('delete', [User::class, $user]);
+
         $action->handle($user);
 
         return to_route('user-management.index')

@@ -13,7 +13,7 @@ final readonly class UserPolicy
         return $user->is_admin;
     }
 
-    public function view(User $user, User $model): bool
+    public function view(User $user): bool
     {
         return $user->is_admin;
     }
@@ -23,7 +23,7 @@ final readonly class UserPolicy
         return $user->is_admin;
     }
 
-    public function update(User $user, User $model): bool
+    public function update(User $user): bool
     {
         return $user->is_admin;
     }

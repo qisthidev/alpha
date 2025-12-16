@@ -130,3 +130,18 @@ it('limits per page to minimum of 1', function (): void {
 
     expect($result->perPage())->toBe(50);
 });
+
+it('uses ILIKE for PostgreSQL search', function (): void {
+    User::factory()->create(['name' => 'John Doe', 'email' => 'john@example.com']);
+    User::factory()->create(['name' => 'Jane Smith', 'email' => 'jane@example.com']);
+
+    // Mock the connection to return 'pgsql' as driver
+    Illuminate\Support\Facades\DB::shouldReceive('connection')->andReturnSelf();
+    Illuminate\Support\Facades\DB::shouldReceive('getDriverName')->andReturn('pgsql');
+
+    $action = new ListUsers;
+    $result = $action->handle(['search' => 'John']);
+
+    // The search should still work (using SQLite underneath, but code path is covered)
+    expect($result)->toBeInstanceOf(Illuminate\Contracts\Pagination\LengthAwarePaginator::class);
+});

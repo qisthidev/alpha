@@ -45,7 +45,7 @@ it('may search users by name', function (): void {
 });
 
 it('may search users by email', function (): void {
-    $admin = User::factory()->create(['is_admin' => true]);
+    $admin = User::factory()->create(['is_admin' => true, 'email' => 'admin@test.com']);
     User::factory()->create(['email' => 'john@example.com']);
     User::factory()->create(['email' => 'jane@example.com']);
     User::factory()->create(['email' => 'bob@test.com']);
