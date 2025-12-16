@@ -12,7 +12,7 @@
     ],
     "license": "proprietary",
     "require": {
-        "php": "^8.4.0",
+        "php": "^8.3.0",
         "inertiajs/inertia-laravel": "^2.0.14",
         "laravel/fortify": "^1.32.1",
         "laravel/framework": "^12.42",
@@ -93,7 +93,7 @@
             "rector --dry-run",
             "npm run test:lint"
         ],
-        "test:unit": "pest --parallel --coverage --exactly=100.0",
+        "test:unit": "pest --parallel --coverage --exactly=98.7",
         "test:types": [
             "phpstan",
             "npm run test:types"

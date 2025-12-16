@@ -66,7 +66,7 @@ export default function CatalystShowcase() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Catalyst Showcase" />
-            <div className="flex flex-1 flex-col gap-8 overflow-x-auto p-4 lg:p-8">
+            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {/* Page Header */}
                 <div>
                     <Heading>Catalyst UI Kit</Heading>
