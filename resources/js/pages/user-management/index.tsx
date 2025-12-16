@@ -30,7 +30,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 interface User {
-    id: number;
+    id: string; // ULID primary key
     name: string;
     email: string;
     email_verified_at: string | null;
@@ -71,7 +71,7 @@ export default function Index({ users, filters }: Props) {
     const [search, setSearch] = useState(filters.search || '');
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [userToDelete, setUserToDelete] = useState<{
-        id: number;
+        id: string; // ULID primary key
         name: string;
     } | null>(null);
 
@@ -118,7 +118,7 @@ export default function Index({ users, filters }: Props) {
         );
     };
 
-    const handleDeleteClick = (userId: number, userName: string) => {
+    const handleDeleteClick = (userId: string, userName: string) => {
         setUserToDelete({ id: userId, name: userName });
         setDeleteDialogOpen(true);
     };

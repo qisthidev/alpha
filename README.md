@@ -37,7 +37,7 @@ This project maintains the strict standards of the original starter kit:
 As I build out this playground, I'll be implementing features inspired by my experience with Laravolt:
 
 - [x] Advanced authentication flows (email verification, two-factor, social login)
-- [x] User management and profile system (scalable CRUD for 100k+ users)
+- [x] User management and profile system (scalable CRUD for 100k+ users with ULID primary keys)
 - [ ] Role-based access control (RBAC)
 - [ ] Form builder components
 - [ ] Media library and file management

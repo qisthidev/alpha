@@ -2,6 +2,17 @@
 
 This document describes the user management feature implementation with scalability for 100k+ users.
 
+## Enterprise-Level Architecture
+
+### ULID Primary Keys
+The User model uses **ULID** (Universally Unique Lexicographically Sortable Identifier) instead of auto-incrementing integers for:
+- **Enhanced Security**: Non-sequential IDs prevent enumeration attacks and information leakage
+- **Distributed Systems**: Globally unique IDs enable database sharding and microservices architecture
+- **Better Performance**: Chronologically sortable with efficient B-tree indexing
+- **URL Safety**: 26-character case-insensitive strings (shorter than UUIDs)
+
+See [ULID_MIGRATION.md](./ULID_MIGRATION.md) for detailed implementation and migration guide.
+
 ## Features
 
 ### CRUD Operations
