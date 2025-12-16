@@ -30,7 +30,8 @@ it('may list users with pagination', function (): void {
 });
 
 it('may search users by name', function (): void {
-    $user = User::factory()->create(['name' => 'John Doe', 'is_admin' => false]);
+    $admin = User::factory()->create(['is_admin' => true]);
+    User::factory()->create(['name' => 'John Doe']);
     User::factory()->create(['name' => 'Jane Smith']);
     User::factory()->create(['name' => 'Bob Johnson']);
 
@@ -44,7 +45,8 @@ it('may search users by name', function (): void {
 });
 
 it('may search users by email', function (): void {
-    $user = User::factory()->create(['email' => 'john@example.com', 'is_admin' => false]);
+    $admin = User::factory()->create(['is_admin' => true]);
+    User::factory()->create(['email' => 'john@example.com']);
     User::factory()->create(['email' => 'jane@example.com']);
     User::factory()->create(['email' => 'bob@test.com']);
 
@@ -58,7 +60,7 @@ it('may search users by email', function (): void {
 });
 
 it('may sort users by name', function (): void {
-    $user = User::factory()->create(['name' => 'Zoe Admin']);
+    $admin = User::factory()->create(['is_admin' => true, 'name' => 'Zoe Admin']);
     $userA = User::factory()->create(['name' => 'Alice']);
     $userB = User::factory()->create(['name' => 'Bob']);
     $userC = User::factory()->create(['name' => 'Charlie']);
@@ -74,7 +76,7 @@ it('may sort users by name', function (): void {
 });
 
 it('renders user show page', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
     $user = User::factory()->create(['name' => 'Test User']);
 
     $response = $this->actingAs($admin)
@@ -98,7 +100,7 @@ it('renders user create page', function (): void {
 });
 
 it('may create a new user', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->actingAs($admin)
         ->post(route('user-management.store'), [
@@ -119,7 +121,7 @@ it('may create a new user', function (): void {
 });
 
 it('requires name when creating user', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->actingAs($admin)
         ->post(route('user-management.store'), [
@@ -132,7 +134,7 @@ it('requires name when creating user', function (): void {
 });
 
 it('requires email when creating user', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->actingAs($admin)
         ->post(route('user-management.store'), [
@@ -145,7 +147,7 @@ it('requires email when creating user', function (): void {
 });
 
 it('requires valid email when creating user', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->actingAs($admin)
         ->post(route('user-management.store'), [
@@ -159,7 +161,7 @@ it('requires valid email when creating user', function (): void {
 });
 
 it('requires unique email when creating user', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
     User::factory()->create(['email' => 'existing@example.com']);
 
     $response = $this->actingAs($admin)
@@ -174,7 +176,7 @@ it('requires unique email when creating user', function (): void {
 });
 
 it('requires password when creating user', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->actingAs($admin)
         ->post(route('user-management.store'), [
@@ -186,7 +188,7 @@ it('requires password when creating user', function (): void {
 });
 
 it('requires password confirmation when creating user', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
 
     $response = $this->actingAs($admin)
         ->post(route('user-management.store'), [
@@ -199,7 +201,7 @@ it('requires password confirmation when creating user', function (): void {
 });
 
 it('renders user edit page', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
     $user = User::factory()->create(['name' => 'Test User']);
 
     $response = $this->actingAs($admin)
@@ -213,7 +215,7 @@ it('renders user edit page', function (): void {
 });
 
 it('may update a user', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
     $user = User::factory()->create([
         'name' => 'Old Name',
         'email' => 'old@example.com',
@@ -234,8 +236,8 @@ it('may update a user', function (): void {
 });
 
 it('requires name when updating user', function (): void {
-    $admin = User::factory()->create();
     $admin = User::factory()->create(['is_admin' => true]);
+    $user = User::factory()->create();
 
     $response = $this->actingAs($admin)
         ->patch(route('user-management.update', $user), [
@@ -246,8 +248,8 @@ it('requires name when updating user', function (): void {
 });
 
 it('requires email when updating user', function (): void {
-    $admin = User::factory()->create();
     $admin = User::factory()->create(['is_admin' => true]);
+    $user = User::factory()->create();
 
     $response = $this->actingAs($admin)
         ->patch(route('user-management.update', $user), [
@@ -258,8 +260,8 @@ it('requires email when updating user', function (): void {
 });
 
 it('requires valid email when updating user', function (): void {
-    $admin = User::factory()->create();
     $admin = User::factory()->create(['is_admin' => true]);
+    $user = User::factory()->create();
 
     $response = $this->actingAs($admin)
         ->patch(route('user-management.update', $user), [
@@ -271,7 +273,7 @@ it('requires valid email when updating user', function (): void {
 });
 
 it('requires unique email when updating user', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
     User::factory()->create(['email' => 'existing@example.com']);
     $user = User::factory()->create(['email' => 'test@example.com']);
 
@@ -285,7 +287,7 @@ it('requires unique email when updating user', function (): void {
 });
 
 it('allows same email when updating user', function (): void {
-    $admin = User::factory()->create();
+    $admin = User::factory()->create(['is_admin' => true]);
     $user = User::factory()->create([
         'name' => 'Test User',
         'email' => 'test@example.com',
@@ -306,8 +308,8 @@ it('allows same email when updating user', function (): void {
 });
 
 it('may delete a user', function (): void {
-    $admin = User::factory()->create();
     $admin = User::factory()->create(['is_admin' => true]);
+    $user = User::factory()->create();
 
     $response = $this->actingAs($admin)
         ->delete(route('user-management.destroy', $user));
@@ -341,7 +343,7 @@ it('requires authentication to store user', function (): void {
 });
 
 it('requires authentication to show user', function (): void {
-    $admin = User::factory()->create(['is_admin' => true]);
+    $user = User::factory()->create();
 
     $response = $this->get(route('user-management.show', $user));
 
@@ -349,7 +351,7 @@ it('requires authentication to show user', function (): void {
 });
 
 it('requires authentication to edit user', function (): void {
-    $admin = User::factory()->create(['is_admin' => true]);
+    $user = User::factory()->create();
 
     $response = $this->get(route('user-management.edit', $user));
 
@@ -357,7 +359,7 @@ it('requires authentication to edit user', function (): void {
 });
 
 it('requires authentication to update user', function (): void {
-    $admin = User::factory()->create(['is_admin' => true]);
+    $user = User::factory()->create();
 
     $response = $this->patch(route('user-management.update', $user), [
         'name' => 'New Name',
@@ -368,7 +370,7 @@ it('requires authentication to update user', function (): void {
 });
 
 it('requires authentication to delete user', function (): void {
-    $admin = User::factory()->create(['is_admin' => true]);
+    $user = User::factory()->create();
 
     $response = $this->delete(route('user-management.destroy', $user));
 
