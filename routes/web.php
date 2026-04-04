@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\GitHubSearchController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserEmailResetNotification;
@@ -18,6 +19,7 @@ Route::get('/', fn () => Inertia::render('welcome'))->name('home');
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('dashboard', fn () => Inertia::render('dashboard'))->name('dashboard');
     Route::get('catalyst-showcase', fn () => Inertia::render('catalyst-showcase'))->name('catalyst-showcase');
+    Route::get('github-search', GitHubSearchController::class)->name('github-search');
 });
 
 Route::middleware('auth')->group(function (): void {
